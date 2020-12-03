@@ -35,6 +35,9 @@ module Enumerable
 
   def my_all?
     return true unless block_given?
+
+    to_a.my_each { |val| return false unless yield(val)}
+    true
   end
 end
 
@@ -50,4 +53,4 @@ puts "------my_select-------"
 p names.my_select { |name| name == "Jane"}
 p hash_names.my_select { |k, v| v === "2"}
 puts "--------my_all-------"
-p names.my_all 
+p names.my_all? { |name| name.length > 4 }
