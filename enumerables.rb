@@ -20,17 +20,15 @@ module Enumerable
   def my_select
     return to_enum(:select) unless block_given?
     
-    if is_a? Array
-      arr = []
+    arr = []
+    to_a.my_each { |val| arr << val if yield(val)}
 
-      to_a.my_each { |val| arr << val if yield(val)}
-      arr
-    else
-      arr = to_a
-      n_arr = []
-      arr.my_each { |val| n_arr << val if yield(val[0], val[1])}
-      n_arr.to_h
-    end
+    (is_a? Array)? arr : arr.to_h
+    # if is_a? Array
+    #  arr
+    # else
+    #   arr.to_h
+    # end
   end
 
   def my_all?
@@ -54,3 +52,4 @@ p names.my_select { |name| name == "Jane"}
 p hash_names.my_select { |k, v| v === "2"}
 puts "--------my_all-------"
 p names.my_all? { |name| name.length > 4 }
+p hash_names.my_all? { |k,v| v.is_a? String }
