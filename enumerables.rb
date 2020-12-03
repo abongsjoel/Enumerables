@@ -46,9 +46,22 @@ module Enumerable
     to_a.my_each { |val| return false if yield(val)}
     true
   end
+
+  def my_count?(para = false)
+    counter = 0
+    if block_given?
+      to_a.my_each { |val| counter+=1 if yield(val) }
+    elsif para
+      to_a.my_each { |val| counter+=1 if para == val }  
+    else
+      counter = to_a.length
+    end
+    counter
+  end
 end
 
-names = ["Jane", "John", "Philip", "Emmmanuel"]
+names = ["Jane", "John", "Philip", "Emmmanuel", "John"]
+count_array = [nil, nil, "John", 5]
 hash_names = {:Jane => "1", :John => "2", "Philip" => "3", "Emmmanuel" => "4"}
 
 puts "------#my_each-----"
@@ -68,3 +81,7 @@ p hash_names.my_any? { |k, v| v.is_a? Array }
 puts "--------#my_none-------"
 p names.my_none? { |name| name.length < 1 }
 p hash_names.my_none? { |k, v| v.is_a? String }
+puts "--------#my_count------"
+p names.my_count? { |name| name.length == 4}
+p names.my_count?("John")
+p names.my_count?
