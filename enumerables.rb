@@ -39,6 +39,13 @@ module Enumerable
     to_a.my_each { |val| return true if yield(val)}
     false
   end
+
+  def my_none?
+    return true unless block_given?
+
+    to_a.my_each { |val| return false if yield(val)}
+    true
+  end
 end
 
 names = ["Jane", "John", "Philip", "Emmmanuel"]
@@ -58,3 +65,6 @@ p hash_names.my_all? { |k, v| v.is_a? String }
 puts "--------#my_any-------"
 p names.my_any? { |name| name.length < 5 }
 p hash_names.my_any? { |k, v| v.is_a? Array }
+puts "--------#my_none-------"
+p names.my_none? { |name| name.length < 1 }
+p hash_names.my_none? { |k, v| v.is_a? String }
