@@ -58,11 +58,19 @@ module Enumerable
     end
     counter
   end
+
+  def my_map
+    return to_enum(:my_map) unless block_given?
+    
+    arr = []
+    to_a.my_each { |val| arr << yield(val) }
+    arr
+  end
 end
 
 names = ["Jane", "John", "Philip", "Emmmanuel", "John"]
-count_array = [nil, nil, "John", 5]
 hash_names = {:Jane => "1", :John => "2", "Philip" => "3", "Emmmanuel" => "4"}
+numbers = [3, 4, 5, 1]
 
 puts "------#my_each-----"
 names.my_each { |name| puts "Hello #{name}"}
@@ -85,3 +93,6 @@ puts "--------#my_count------"
 p names.my_count? { |name| name.length == 4}
 p names.my_count?("John")
 p names.my_count?
+puts "---------#my_map------------"
+p names.my_map { |name| name.upcase}
+p numbers.my_map { |num| num ** 2 }
