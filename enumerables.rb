@@ -66,6 +66,22 @@ module Enumerable
     to_a.my_each { |val| arr << yield(val) }
     arr
   end
+
+  def my_inject(initial = false)
+    if initial.is_a? Symbol
+      memo = to_a[0]
+      1.upto(to_a.length - 1 ) { |i| memo = memo.send(initial, to_a[i])} 
+    else
+      if block_given? && initial
+        memo = initial
+        to_a.my_each { |val| memo = yield(memo, val)}
+      elsif block_given? && !initial
+        memo = to_a[0]
+        1.upto(to_a.length - 1 ) { |i| memo = yield(memo, to_a[i])} 
+      end
+    end
+    memo
+  end
 end
 
 names = ["Jane", "John", "Philip", "Emmmanuel", "John"]
@@ -96,3 +112,12 @@ p names.my_count?
 puts "---------#my_map------------"
 p names.my_map { |name| name.upcase}
 p numbers.my_map { |num| num ** 2 }
+puts "---------#my_inject----------"
+p numbers.my_inject { |sum, n| sum + n }
+p numbers.my_inject(100) { |sum, n| sum + n }
+longest = %w{ cat sheep bear }.inject do |memo, word|
+  memo.length > word.length ? memo : word
+end
+p longest   
+p numbers.my_inject(:+)
+p numbers.my_inject(:*)
