@@ -2,8 +2,8 @@ module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
     
-  0.upto(to_a.length - 1) do |i|
-    yield(to_a[i])
+  0.upto(length - 1) do |i|
+    yield([i])
   end
     self
   end
