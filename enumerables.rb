@@ -29,6 +29,7 @@ module Enumerable
 end
 
 names = ["Jane", "John", "Philip", "Emmmanuel"]
+hash_names = {"Jane" => "1", "John" => "2", "Philip" => "3", "Emmmanuel" => "4"}
 
 puts "------my_each-----"
 names.my_each { |name| puts "Hello #{name}"}
@@ -36,3 +37,4 @@ puts "------my_each_with_index-------"
 names.my_each_with_index { |name, index| puts "#{name}'s index is #{index}"}
 puts "------my_select-------"
 p names.my_select { |name| name == "Jane"}
+p hash_names.my_select { |name| name == "Jane"}
