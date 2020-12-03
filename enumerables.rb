@@ -32,6 +32,10 @@ module Enumerable
       n_arr.to_h
     end
   end
+
+  def my_all?
+    return true unless block_given?
+  end
 end
 
 names = ["Jane", "John", "Philip", "Emmmanuel"]
@@ -45,3 +49,5 @@ names.my_each_with_index { |name, index| puts "#{name}'s index is #{index}"}
 puts "------my_select-------"
 p names.my_select { |name| name == "Jane"}
 p hash_names.my_select { |k, v| v === "2"}
+puts "--------my_all-------"
+p names.my_all 
