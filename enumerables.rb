@@ -32,19 +32,29 @@ module Enumerable
     to_a.my_each { |val| return false unless yield(val)}
     true
   end
+
+  def my_any?
+    return true unless block_given?
+
+    to_a.my_each { |val| return true if yield(val)}
+    false
+  end
 end
 
 names = ["Jane", "John", "Philip", "Emmmanuel"]
 hash_names = {:Jane => "1", :John => "2", "Philip" => "3", "Emmmanuel" => "4"}
 
-puts "------my_each-----"
+puts "------#my_each-----"
 names.my_each { |name| puts "Hello #{name}"}
 hash_names.my_each { |k,v| puts "#{k} is #{v}"}
-puts "------my_each_with_index-------"
+puts "------#my_each_with_index-------"
 names.my_each_with_index { |name, index| puts "#{name}'s index is #{index}"}
-puts "------my_select-------"
+puts "------#my_select-------"
 p names.my_select { |name| name == "Jane"}
 p hash_names.my_select { |k, v| v === "2"}
-puts "--------my_all-------"
+puts "--------#my_all-------"
 p names.my_all? { |name| name.length > 4 }
 p hash_names.my_all? { |k, v| v.is_a? String }
+puts "--------#my_any-------"
+p names.my_any? { |name| name.length < 5 }
+p hash_names.my_any? { |k, v| v.is_a? Array }
