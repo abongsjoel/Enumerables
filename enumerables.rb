@@ -20,16 +20,25 @@ module Enumerable
   def my_select
     return to_enum(:select) unless block_given?
     
-    arr = Array.new
-    0.upto(to_a.length - 1) do |i|
-      arr << to_a[i] if yield(to_a[i])
+    if is_a? Array
+      arr = Array.new
+      0.upto(to_a.length - 1) do |i|
+        arr << to_a[i] if yield(to_a[i])
+      end
+      arr
+    else
+      arr = to_a
+      n_arr = []
+      0.upto(length - 1) do |i|
+        n_arr << arr[i] if yield(arr[i][0], arr[i][1])
+      end
+      n_arr.to_h
     end
-    arr
   end
 end
 
 names = ["Jane", "John", "Philip", "Emmmanuel"]
-hash_names = {"Jane" => "1", "John" => "2", "Philip" => "3", "Emmmanuel" => "4"}
+hash_names = {:Jane => "1", :John => "2", "Philip" => "3", "Emmmanuel" => "4"}
 
 puts "------my_each-----"
 names.my_each { |name| puts "Hello #{name}"}
@@ -37,4 +46,4 @@ puts "------my_each_with_index-------"
 names.my_each_with_index { |name, index| puts "#{name}'s index is #{index}"}
 puts "------my_select-------"
 p names.my_select { |name| name == "Jane"}
-p hash_names.my_select { |name| name == "Jane"}
+p hash_names.my_select { |k, v| v === "2"}
