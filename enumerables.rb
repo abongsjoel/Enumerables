@@ -35,6 +35,9 @@ module Enumerable
     elsif para.is_a?(Class)
       to_a.my_each { |val| return false unless val.is_a?(para) }
       true
+    elsif para.is_a?(Regexp)
+      to_a.my_each { |val| return false unless para.match(val) }
+      true
     else
       to_a.my_each { |val| return false unless yield(val) }
       true
