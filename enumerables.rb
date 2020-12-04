@@ -67,17 +67,22 @@ module Enumerable
     arr
   end
 
-  def my_inject(initial = false)
-    if initial.is_a? Symbol
+  def my_inject(initial_1 = false, initial_2 = false)
+    if initial_1.is_a?(Symbol) && initial_2 == false
       memo = to_a[0]
-      1.upto(to_a.length - 1 ) { |i| memo = memo.send(initial, to_a[i])} 
+      1.upto(to_a.length - 1 ) { |i| memo = memo.send(initial_1, to_a[i])} 
+    elsif initial_1.is_a?(Integer) && initial_2.is_a?(Symbol)
+      memo = initial_1
+      0.upto(to_a.length - 1 ) { |i| memo = memo.send(initial_2, to_a[i])} 
     else
-      if block_given? && initial
-        memo = initial
+      if block_given? && initial_1
+        memo = initial_1
         to_a.my_each { |val| memo = yield(memo, val)}
-      elsif block_given? && !initial
+      elsif block_given? && !initial_1
         memo = to_a[0]
-        1.upto(to_a.length - 1 ) { |i| memo = yield(memo, to_a[i])} 
+        1.upto(to_a.length - 1 ) { |i| memo = yield(memo, to_a[i])}
+      else
+        return "input error"
       end
     end
     memo
@@ -121,3 +126,14 @@ end
 p longest   
 p numbers.my_inject(:+)
 p numbers.my_inject(:*)
+p numbers.my_inject(2, :+)
+p numbers.my_inject(:+, 2)
+
+# Sum some numbers
+p (5..10).my_inject(:+)                             #=> 45
+# Same using a block and inject
+p (5..10).my_inject { |sum, n| sum + n }            #=> 45
+# Multiply some numbers
+p (5..10).my_inject(1, :*)                          #=> 151200
+# Same using a block
+p (5..10).my_inject(1) { |product, n| product * n } #=> 151200
