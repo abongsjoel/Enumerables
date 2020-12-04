@@ -28,10 +28,13 @@ module Enumerable
     is_a?(Array) ? arr : is_a?(Range) ? arr: arr.to_h
   end
 
-  def my_all?
-    if !block_given?
-      to_a.my_each {|val| return false unless val}
-      return true
+  def my_all?(para = nil)
+    if !block_given? && !para
+      to_a.my_each { |val| return false unless val }
+      true
+    elsif para.is_a?(Class)
+      to_a.my_each { |val| return false unless val.is_a?(para) }
+      true
     else
       to_a.my_each { |val| return false unless yield(val) }
       true
