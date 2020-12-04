@@ -48,10 +48,13 @@ module Enumerable
   end
 
   def my_any?
-    return true unless block_given?
-
-    to_a.my_each { |val| return true if yield(val) }
-    false
+    if !block_given?
+      to_a.my_each { |val| return true unless !val }
+      false
+    else
+      to_a.my_each { |val| return true if yield(val) }
+      false
+    end
   end
 
   def my_none?
