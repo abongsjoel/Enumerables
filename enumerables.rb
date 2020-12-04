@@ -59,11 +59,15 @@ module Enumerable
     counter
   end
 
-  def my_map
-    return to_enum(:my_map) unless block_given?
-    
+  def my_map(my_proc = nil)
+    return to_enum(:my_map) unless block_given? || my_proc 
+
     arr = []
-    to_a.my_each { |val| arr << yield(val) }
+    if my_proc
+      to_a.my_each { |val| arr << my_proc.call(val) }
+    else
+      to_a.my_each { |val| arr << yield(val) }
+    end
     arr
   end
 
@@ -121,7 +125,8 @@ p names.my_count? { |name| name.length == 4}
 p names.my_count?("John")
 p names.my_count?
 puts "---------#my_map------------"
-p names.my_map { |name| name.upcase}
+upcase_proc = Proc.new { |name| name.upcase}
+p names.my_map(upcase_proc) 
 p numbers.my_map { |num| num ** 2 }
 puts "---------#my_inject----------"
 p numbers.my_inject { |sum, n| sum + n }
