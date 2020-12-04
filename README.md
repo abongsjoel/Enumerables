@@ -2,9 +2,9 @@
 
 # Enumerables
 
-> In this project we used we recreated some of the enumerable module methods
+> In this project we recreated some of the enumerable module methods
 
-In this project we re-created multiple methods from the enumerable module, applying concepts like block and Proc in our methods.
+In this project we re-created multiple methods from the enumerable module, applying concepts like block and Proc in our methods. We re-created our own versions of the #each, #each_with_index, #select, #all?, #any?, #none?, #count, #map, #inject methods.
 
 ## Built With
 
