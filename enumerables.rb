@@ -89,6 +89,12 @@ module Enumerable
   end
 end
 
+def multiply_els(arr)
+  arr.my_inject(:*)
+end
+
+
+
 names = ["Jane", "John", "Philip", "Emmmanuel", "John"]
 hash_names = {:Jane => "1", :John => "2", "Philip" => "3", "Emmmanuel" => "4"}
 numbers = [3, 4, 5, 1]
@@ -131,3 +137,5 @@ p numbers.my_inject(2, :+)
 p numbers.my_inject(:+, 2) #=> "input error"
 # argument and block passed
 p (5..10).my_inject(1) { |product, n| product * n } #=> 151200
+puts "---------#multiply_els----------"
+p multiply_els([2,4,5]) #=> 40
