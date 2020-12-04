@@ -127,13 +127,7 @@ p longest
 p numbers.my_inject(:+)
 p numbers.my_inject(:*)
 p numbers.my_inject(2, :+)
-p numbers.my_inject(:+, 2)
-
-# Sum some numbers
-p (5..10).my_inject(:+)                             #=> 45
-# Same using a block and inject
-p (5..10).my_inject { |sum, n| sum + n }            #=> 45
-# Multiply some numbers
-p (5..10).my_inject(1, :*)                          #=> 151200
-# Same using a block
+#incorrect arguments passed
+p numbers.my_inject(:+, 2) #=> "input error"
+# argument and block passed
 p (5..10).my_inject(1) { |product, n| product * n } #=> 151200
