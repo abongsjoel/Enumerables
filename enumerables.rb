@@ -29,10 +29,13 @@ module Enumerable
   end
 
   def my_all?
-    return true unless block_given?
-
-    to_a.my_each { |val| return false unless yield(val) }
-    true
+    if !block_given?
+      to_a.my_each {|val| return false unless val}
+      return true
+    else
+      to_a.my_each { |val| return false unless yield(val) }
+      true
+    end
   end
 
   def my_any?
