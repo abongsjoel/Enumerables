@@ -63,11 +63,17 @@ module Enumerable
     end
   end
 
-  def my_none?
-    return true unless block_given?
-
-    to_a.my_each { |val| return false if yield(val) }
-    true
+  def my_none?(para = nil)
+    if !block_given? && !para
+      to_a.my_each { |val| return false unless val }
+      true
+    elsif para.is_a?(Regexp)
+      to_a.my_each { |val| return false unless para.match(val) }
+      true
+    else
+      to_a.my_each { |val| return false if yield(val) }
+      true
+    end
   end
 
   def my_count?(para = nil)
