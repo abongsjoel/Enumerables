@@ -66,8 +66,7 @@ module Enumerable
       to_a.my_each { |val| return false if val.is_a?(para) }
     elsif para
       to_a.my_each { |val| return false if val == para }
-    else
-      to_a.my_each { |val| return false if yield(val) }
+    else to_a.my_each { |val| return false if yield(val) }
     end
     true
   end
@@ -78,8 +77,7 @@ module Enumerable
       to_a.my_each { |val| counter += 1 if yield(val) }
     elsif para
       to_a.my_each { |val| counter += 1 if para == val }
-    else
-      counter = to_a.length
+    else counter = to_a.length
     end
     counter
   end
@@ -90,8 +88,7 @@ module Enumerable
     arr = []
     if my_proc
       to_a.my_each { |val| arr << my_proc.call(val) }
-    else
-      to_a.my_each { |val| arr << yield(val) }
+    else to_a.my_each { |val| arr << yield(val) }
     end
     arr
   end
