@@ -70,6 +70,9 @@ module Enumerable
     elsif para.is_a?(Regexp)
       to_a.my_each { |val| return false unless para.match(val) }
       true
+    elsif para.is_a?(Class)
+      to_a.my_each { |val| return false if val.is_a?(para) }
+      true
     else
       to_a.my_each { |val| return false if yield(val) }
       true
