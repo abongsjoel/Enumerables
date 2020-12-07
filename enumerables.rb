@@ -82,7 +82,7 @@ module Enumerable
     end
   end
 
-  def my_count?(para = nil)
+  def my_count(para = nil)
     counter = 0
     if block_given?
       to_a.my_each { |val| counter += 1 if yield(val) }
