@@ -109,8 +109,7 @@ module Enumerable
       1.upto(to_a.length - 1) { |i| memo = yield(memo, to_a[i]) }
     elsif !block_given? && !initial_1
       raise LocalJumpError
-    else
-      return 'input error'
+    else return 'input error'
     end
     memo
   end
