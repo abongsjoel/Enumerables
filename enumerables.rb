@@ -31,25 +31,21 @@ module Enumerable
   def my_all?(para = nil)
     if !block_given? && !para
       to_a.my_each { |val| return false unless val }
-      true
     elsif para.is_a?(Class)
       to_a.my_each { |val| return false unless val.is_a?(para) }
-      true
     elsif para.is_a?(Regexp)
       to_a.my_each { |val| return false unless para.match(val) }
-      true
     elsif para
       to_a.my_each { |val| return false unless val == para }
-      true
     else
       to_a.my_each { |val| return false unless yield(val) }
-      true
     end
+    true
   end
 
   def my_any?(para = nil)
     if !block_given? && !para
-      to_a.my_each { |val| return true unless !val }
+      to_a.my_each { |val| return true if val }
     elsif para.is_a?(Regexp)
       to_a.my_each { |val| return true if para.match(val) }
     elsif para
