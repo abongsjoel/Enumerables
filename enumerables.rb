@@ -24,7 +24,6 @@ module Enumerable
 
     arr = []
     to_a.my_each { |val| arr << val if yield(val) }
-
     is_a?(Array) || is_a?(Range) ? arr : arr.to_h
   end
 
