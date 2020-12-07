@@ -50,17 +50,14 @@ module Enumerable
   def my_any?(para = nil)
     if !block_given? && !para
       to_a.my_each { |val| return true unless !val }
-      false
     elsif para.is_a?(Regexp)
       to_a.my_each { |val| return true if para.match(val) }
-      false
     elsif para
       to_a.my_each { |val| return true if val == para }
-      false
     else
       to_a.my_each { |val| return true if yield(val) }
-      false
     end
+    false
   end
 
   def my_none?(para = nil)
