@@ -110,15 +110,17 @@ module Enumerable
     if initial_1.is_a?(Symbol) && !initial_2
       memo = to_a[0]
       1.upto(to_a.length - 1) { |i| memo = memo.send(initial_1, to_a[i]) }
-    elsif initial_1.is_a?(Integer) && initial_2.is_a?(Symbol)
+    elsif !initial_1.is_a?(Symbol) && initial_2.is_a?(Symbol)
       memo = initial_1
       0.upto(to_a.length - 1) { |i| memo = memo.send(initial_2, to_a[i]) }
-    elsif block_given? && initial_1.is_a?(Integer)
+    elsif block_given? && initial_1
       memo = initial_1
       to_a.my_each { |val| memo = yield(memo, val) }
     elsif block_given? && !initial_1
       memo = to_a[0]
       1.upto(to_a.length - 1) { |i| memo = yield(memo, to_a[i]) }
+    elsif !block_given? && !initial_1
+      raise LocalJumpError
     else
       return 'input error'
     end
