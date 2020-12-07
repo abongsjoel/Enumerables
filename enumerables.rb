@@ -65,13 +65,16 @@ module Enumerable
 
   def my_none?(para = nil)
     if !block_given? && !para
-      to_a.my_each { |val| return false unless val }
+      to_a.my_each { |val| return false if val }
       true
     elsif para.is_a?(Regexp)
-      to_a.my_each { |val| return false unless para.match(val) }
+      to_a.my_each { |val| return false if para.match(val) }
       true
     elsif para.is_a?(Class)
       to_a.my_each { |val| return false if val.is_a?(para) }
+      true
+    elsif para
+      to_a.my_each { |val| return false if val == para }
       true
     else
       to_a.my_each { |val| return false if yield(val) }
