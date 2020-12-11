@@ -22,7 +22,7 @@ In this project we re-created multiple methods from the enumerable module, apply
 - Twitter: [@Turo_83](https://twitter.com/Turo_83)
 - LinkedIn: [Carlos Alvarez](https://www.linkedin.com/in/carlosalvarezveroy/)
 
-👤 **inser partner name here**
+👤 **Chi Abongwa Joel**
 
 - GitHub: [@abongsjoel](https://github.com/abongsjoel)
 - Twitter: [@thierryjoel10](https://twitter.com/ThierryJoel10)
