@@ -66,7 +66,8 @@ module Enumerable
       to_a.my_each { |val| return false if val.is_a?(para) }
     elsif para
       to_a.my_each { |val| return false if val == para }
-    else to_a.my_each { |val| return false if yield(val) }
+    else 
+      to_a.my_each { |val| return false if yield(val) }
     end
     true
   end
@@ -88,7 +89,8 @@ module Enumerable
     arr = []
     if my_proc
       to_a.my_each { |val| arr << my_proc.call(val) }
-    else to_a.my_each { |val| arr << yield(val) }
+    else 
+      to_a.my_each { |val| arr << yield(val) }
     end
     arr
   end
@@ -108,7 +110,8 @@ module Enumerable
       1.upto(to_a.length - 1) { |i| memo = yield(memo, to_a[i]) }
     elsif !block_given? && !initial_1
       raise LocalJumpError
-    else return 'input error'
+    else 
+      return 'input error'
     end
     memo
   end
