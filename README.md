@@ -37,3 +37,6 @@ Feel free to check the [issues page](https://github.com/StarSheriff2/bubble-sort
 ## Show your support
 
 Give a ⭐️ if you like this project!
+
+## License
+  <p>This project is <a href="../main/LICENSE">MIT</a> licensed.</p>
